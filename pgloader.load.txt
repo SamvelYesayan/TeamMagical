@@ -1,0 +1,16 @@
+LOAD DATABASE
+     FROM mysql://magical_docker_migrator:YOUR_PASSWORD@host.docker.internal:3306/magical
+     INTO postgresql://postgres:YOUR_POSTGRES_PASSWORD@host.docker.internal:5432/magical_pg
+
+ WITH include drop,
+      create tables,
+      create indexes,
+      reset sequences,
+      foreign keys
+
+ SET work_mem to '64MB',
+     maintenance_work_mem to '256MB'
+
+ CAST type datetime to timestamptz,
+      type date to date,
+      type json to jsonb;
